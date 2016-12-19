@@ -1,4 +1,4 @@
-(Created by from mattbaker)
+(Created by mattbaker)
 
 # Data Structures: Lists
 
