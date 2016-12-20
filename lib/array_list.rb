@@ -55,20 +55,24 @@ class ArrayList
 	end
 
 	def insert(index, new_item)
-		new_array_length = array.size + 1
-		new_array = FixedArray.new(new_array_length)
-		i = 0
-		while i < index
-			new_array.set(i, array.get(i))
-			i += 1
+		if index >= array.size && index != 0
+			raise OutOfBoundsError.new("The index #{index} outside the bounds of this ArrayList")
+		else
+			new_array_length = array.size + 1
+			new_array = FixedArray.new(new_array_length)
+			i = 0
+			while i < index
+				new_array.set(i, array.get(i))
+				i += 1
+			end
+			new_array.set(i, new_item)
+			j = i + 1
+			while j < new_array_length
+				new_array.set(j, array.get(j - 1))
+				j += 1
+			end
+			@array = new_array
 		end
-		new_array.set(i, new_item)
-		j = i + 1
-		while j < new_array_length
-			new_array.set(j, array.get(j - 1))
-			j += 1
-		end
-		@array = new_array
 	end
 
 	def length
