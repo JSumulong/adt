@@ -1,44 +1,43 @@
 require_relative 'exceptions'
 
 class LinkedList
+
 	def initialize
-		# @first_item = nil
 		@list = nil
 	end
 
 	def add(new_item)
-		if list
+		if list # Is there already an element in the linked list
 			list_item = list
-			i = 1
-			loop do 
-			# until list_item.next == nil
-				if list_item.next == nil
-					# The code below is wrong...
-					# I don't want to get the value of the instance variable
-					# instead I want to set the name of the variable as the next node
-					# e.g., @node_1, @node_2
-					list_item.next = instance_variable_get("@node_#{i}")
-					p list_item
-					break
-				end
+			# Loop through the list items until the last item is reached
+			# which will have a nil for #next
+			until list_item.next == nil 
 				list_item = list_item.next
-				i += 1
 			end
-			instance_variable_set("@node_#{i}", Node.new(new_item))
-			p self
-		else
-			# @first_item = Node.new(new_item)
+			list_item.next = Node.new(new_item)
+			list_item.next.element
+		else # If this is the first item in the linked list, simply create it...
 			@list = Node.new(new_item)
-			# @list.next = @node_1
 		end
 	end
 
 	def get(index)
 		list_item = list
 		index.times do 
+			raise NoSuchElementError.new("There is no element at the index of #{index}...") if list_item.next == nil
 			list_item = list_item.next
 		end
 		list_item.element
+	end
+
+	def length
+		i = 1
+		list_item = list
+		until list_item.next == nil
+			list_item = list_item.next
+			i += 1
+		end
+		i
 	end
 
 	private
