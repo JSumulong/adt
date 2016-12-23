@@ -40,6 +40,35 @@ class LinkedList
 		i
 	end
 
+	def set(index, new_item)
+		if index == 0 # handle setting the item at index 0
+			next_item = list.next
+			@list = Node.new(new_item)
+			@list.next = next_item
+		else
+			list_item = list
+			(index - 1).times do 
+				list_item = list_item.next
+				raise NoSuchElementError.new("There is no element at the index of #{index}...") if list_item.next == nil
+			end
+			next_item = list_item.next.next
+			list_item.next = Node.new(new_item)
+			list_item.next.next = next_item
+		end
+	end
+
+	def insert(index, new_item) #### Incomplete ####
+		list_item = list
+		(index - 1).times do 
+			raise NoSuchElementError.new("There is no element at the index of #{index}...") if list_item.next == nil
+			list_item = list_item.next
+		end
+		next_for_new_item = list_item.next
+		list_item.next = Node.new(new_item)
+		list_item.next.next = next_for_new_item
+	end
+
+
 	private
 	attr_reader :list
 

@@ -42,6 +42,11 @@ describe LinkedList do
   end
 
   describe '#set' do
+    it 'replaces element at index 0' do 
+      my_list.set(0, "asdf_thing")
+      expect(my_list.get(0)).to eq("asdf_thing")
+    end
+
     it 'replaces element at the specified index' do
       my_list.set(1, "new_thing")
       expect(my_list.get(1)).to eq("new_thing")
