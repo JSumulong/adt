@@ -68,6 +68,10 @@ class LinkedList
 		list_item.next.next = next_for_new_item
 	end
 
+	def first
+		raise NoSuchElementError.new("The list is empty...") if !list
+		list.element
+	end
 
 	private
 	attr_reader :list
