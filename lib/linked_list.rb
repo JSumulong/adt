@@ -57,20 +57,34 @@ class LinkedList
 		end
 	end
 
-	def insert(index, new_item) #### Incomplete ####
-		list_item = list
-		(index - 1).times do 
-			raise NoSuchElementError.new("There is no element at the index of #{index}...") if list_item.next == nil
-			list_item = list_item.next
-		end
-		next_for_new_item = list_item.next
-		list_item.next = Node.new(new_item)
-		list_item.next.next = next_for_new_item
-	end
-
 	def first
 		raise NoSuchElementError.new("The list is empty...") if !list
 		list.element
+	end
+
+	def last 
+		raise NoSuchElementError.new("The list is empty...") if !list 
+		list_item = list
+		until list_item.next == nil
+			list_item = list_item.next
+		end
+		list_item.element
+	end
+
+	def insert(index, new_item)
+		list_item = list
+		if index == 0
+			@list = Node.new(new_item)
+			list.next = list_item
+		else
+			(index - 1).times do 
+				list_item = list_item.next
+			end
+			raise OutOfBoundsError.new("Index is out of bounds...") if !list_item.next
+			resume_next_item = list_item.next
+			list_item.next = Node.new(new_item)
+			list_item.next.next = resume_next_item
+		end
 	end
 
 	private
